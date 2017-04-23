@@ -44,7 +44,7 @@ public class TestCasesLookupController {
             Reflections reflections = new Reflections(new ConfigurationBuilder()
                     .setScanners(new SubTypesScanner(false), new ResourcesScanner())
                     .setUrls(ClasspathHelper.forClassLoader(classLoadersList.toArray(new ClassLoader[0])))
-                    .filterInputsBy(new FilterBuilder().include(FilterBuilder.prefix("com.runner.tests"))));
+                    .filterInputsBy(new FilterBuilder().include(FilterBuilder.prefix("org.json.simple"))));
             Set<Class<? extends Object>> allClasses = reflections.getSubTypesOf(Object.class);
                 allClasses.stream().forEach(cls -> {
                 List<Method> methods = getMethodsAnnotatedWith(cls, Test.class);
