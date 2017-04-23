@@ -12,7 +12,7 @@ public class SampleTest2 {
 
     @Test
     public void testSample() {
-        assertEquals(3, 2+1);
+        assertEquals(3, 2+4);
     }
 
 

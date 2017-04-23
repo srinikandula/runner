@@ -3,6 +3,9 @@ package com.runner;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Test;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Request;
+import org.junit.runner.Result;
 import org.reflections.Reflections;
 import org.reflections.scanners.ResourcesScanner;
 import org.reflections.scanners.SubTypesScanner;
@@ -17,7 +20,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController
 public class TestCasesLookupController {
@@ -89,18 +91,16 @@ public class TestCasesLookupController {
     public List<LinkedHashMap> runTests(@RequestBody final JSONObject data) throws ClassNotFoundException,
             NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         List<LinkedHashMap> tests = (ArrayList) data.get("tests");
+        final JUnitCore junit = new JUnitCore();
+        Request req = null;
         for(LinkedHashMap test: tests) {
             try {
                 Class testClass = Class.forName(test.get("name").toString());
                 List<LinkedHashMap> methods = (ArrayList)test.get("methods");
                 for (LinkedHashMap m : methods) {
-                    try {
-                    Method method = testClass.getMethod(m.get("methodName").toString());
-                    Object result = method.invoke(testClass.newInstance());
-                    m.put("result", true);
-                    }catch (NoSuchMethodException |InvocationTargetException exception) {
-                        m.put("result", false);
-                    }
+                    req = Request.method(testClass, m.get("methodName").toString());
+                    final Result result = junit.run(req);
+                    m.put("result", result.wasSuccessful());
                 }
             }catch (Exception e) {
                e.printStackTrace();
