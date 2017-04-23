@@ -1,0 +1,99 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "angular-deferred-bootstrap@^0.1.9",
+        "scope": null,
+        "escapedName": "angular-deferred-bootstrap",
+        "name": "angular-deferred-bootstrap",
+        "rawSpec": "^0.1.9",
+        "spec": ">=0.1.9 <0.2.0",
+        "type": "range"
+      },
+      "/Users/busda001/code/mybus/src/main/webapp"
+    ]
+  ],
+  "_from": "angular-deferred-bootstrap@>=0.1.9 <0.2.0",
+  "_id": "angular-deferred-bootstrap@0.1.9",
+  "_inCache": true,
+  "_location": "/angular-deferred-bootstrap",
+  "_nodeVersion": "0.12.2",
+  "_npmUser": {
+    "name": "philippd",
+    "email": "philippd@gmail.com"
+  },
+  "_npmVersion": "2.7.4",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "angular-deferred-bootstrap@^0.1.9",
+    "scope": null,
+    "escapedName": "angular-deferred-bootstrap",
+    "name": "angular-deferred-bootstrap",
+    "rawSpec": "^0.1.9",
+    "spec": ">=0.1.9 <0.2.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-deferred-bootstrap/-/angular-deferred-bootstrap-0.1.9.tgz",
+  "_shasum": "fcff01b542bffcdd0d5dfb148942e77135de346e",
+  "_shrinkwrap": null,
+  "_spec": "angular-deferred-bootstrap@^0.1.9",
+  "_where": "/Users/busda001/code/mybus/src/main/webapp",
+  "author": {
+    "name": "Philipp Denzler",
+    "email": "philippd@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/philippd/angular-deferred-bootstrap/issues"
+  },
+  "dependencies": {},
+  "description": "Initialize your AngularJS app with constants loaded from the back-end.",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "fcff01b542bffcdd0d5dfb148942e77135de346e",
+    "tarball": "https://registry.npmjs.org/angular-deferred-bootstrap/-/angular-deferred-bootstrap-0.1.9.tgz"
+  },
+  "gitHead": "2a5586cd7a83dbdbca0237056061f957ccd3ce35",
+  "homepage": "https://github.com/philippd/angular-deferred-bootstrap",
+  "jspm": {
+    "format": "global",
+    "registry": "github",
+    "dependencies": {
+      "angular": "github:angular/bower-angular@^1.2.1"
+    },
+    "shim": {
+      "angular-deferred-bootstrap": {
+        "deps": [
+          "angular"
+        ],
+        "exports": "deferredBootstrapper"
+      }
+    }
+  },
+  "keywords": [
+    "angular",
+    "bootstrap"
+  ],
+  "license": "MIT",
+  "main": "angular-deferred-bootstrap.js",
+  "maintainers": [
+    {
+      "name": "philippd",
+      "email": "philippd@gmail.com"
+    }
+  ],
+  "name": "angular-deferred-bootstrap",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/philippd/angular-deferred-bootstrap.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.1.9"
+}
