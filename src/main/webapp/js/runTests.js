@@ -39,5 +39,23 @@ app.controller("myCtrl", function($scope, $http,NgTableParams) {
             $scope.testClassesToRun.push(testName);
         }
     }
+    $scope.runTests = function () {
+
+        $http({
+            url: '/runTests',
+            dataType: 'json',
+            method: 'POST',
+            data: {'tests':$scope.testClasses},
+            headers: {
+                "Content-Type": "application/json"
+            }
+
+        }).then(function(response){
+            console.log("ran tests " + JSON.stringify(response));
+            }   ,function(error){
+            console.log("Error running your tests " + JSON.stringify(error));
+            });
+
+    }
 
 });

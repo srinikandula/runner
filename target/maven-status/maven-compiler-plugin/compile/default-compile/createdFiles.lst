@@ -1,4 +1,4 @@
 com/runner/tests/SampleTest.class
-com/runner/WelcomeController.class
+com/runner/TestCasesLookupController.class
 com/runner/SampleSpringBootApp.class
 com/runner/tests/SampleTest2.class

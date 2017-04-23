@@ -11,10 +11,7 @@ import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
@@ -52,8 +49,15 @@ public class TestCasesLookupController {
                 if(methods.size() > 0) { //skip the tests with no methods
                     JSONObject response = new JSONObject();
                     response.put("name", cls.getName());
-                    response.put("runTest", false);
-                    response.put("methods", methods.stream().map(Method::getName).collect(Collectors.toList()));
+                    response.put("runTests", false);
+                    JSONArray methodsArray = new JSONArray();
+                    methods.stream().forEach(method -> {
+                        JSONObject methodObj = new JSONObject();
+                        methodObj.put("methodName", method.getName());
+                        methodObj.put("runMethod", false);
+                        methodsArray.add(methodObj);
+                    });
+                    response.put("methods", methodsArray);
                     tests.add(response);
                 }
             });
@@ -82,21 +86,27 @@ public class TestCasesLookupController {
         return methods;
     }
     @RequestMapping(value = "/runTests", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public JSONObject runTests(@RequestParam(required = false) final String param) throws ClassNotFoundException,
+    public List<LinkedHashMap> runTests(@RequestBody final JSONObject data) throws ClassNotFoundException,
             NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        JSONObject response = new JSONObject();
-
-        try {
-            Class testClass = Class.forName("com.runner.tests.SampleTest");
-            Method method = testClass.getMethod("testSample");
-            Object result = method.invoke(testClass.newInstance());
-            response.put("result", true);
-        }catch (Exception e) {
-            response.put("result", false);
-            response.put("message", e.getMessage());
+        List<LinkedHashMap> tests = (ArrayList) data.get("tests");
+        for(LinkedHashMap test: tests) {
+            try {
+                Class testClass = Class.forName(test.get("name").toString());
+                List<LinkedHashMap> methods = (ArrayList)test.get("methods");
+                for (LinkedHashMap m : methods) {
+                    try {
+                    Method method = testClass.getMethod(m.get("methodName").toString());
+                    Object result = method.invoke(testClass.newInstance());
+                    m.put("result", true);
+                    }catch (NoSuchMethodException |InvocationTargetException exception) {
+                        m.put("result", false);
+                    }
+                }
+            }catch (Exception e) {
+               e.printStackTrace();
+            }
         }
-
-        return response;
+        return tests;
     }
 }
 
